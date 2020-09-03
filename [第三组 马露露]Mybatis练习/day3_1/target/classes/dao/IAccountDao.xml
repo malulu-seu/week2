@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IAccountDao">
+
+    <select id="findAll" resultType="domain.AccountUser">
+        select a.*,u.username,u.address from account a,user u where a.uid = u.id
+    </select>
+
+    <select id="findAllJoin" resultMap="userMap">
+        select u.*,acc.id accid, acc.uid, acc.money from user u left join account acc on u.id=acc.uid
+    </select>
+
+
+    <!--resultMap是将domain中的某个类的各个属性(property)  ——> 数据库表中的各个列进行对应(column)-->
+    <!--用于返回该类对象时候的映射-->
+    <resultMap id="userMap" type="domain.User">
+        <id column="id" property="userId"/>
+        <result column="username" property="userName" />
+        <result column="sex" property="userSex" />
+        <result column="address" property="userAddress"/>
+        <result column="birthday" property="userBirthday" />
+
+        <!--类中属性是集合类 column可以是列的别名 -->
+        <collection property="accounts" ofType="domain.Account">
+            <id column="accid" property="id" />
+            <result column="uid" property="uid"/>
+            <result column="money" property="money"/>
+
+        </collection>
+    </resultMap>
+
+</mapper>

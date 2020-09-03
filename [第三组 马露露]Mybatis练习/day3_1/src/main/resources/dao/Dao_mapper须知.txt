@@ -1,0 +1,8 @@
+(1)最外层是<mapper namespace=对应dao接口的位置>
+   表明：这是对应于该dao接口的mapper
+
+(2)<SQL增删改查 id="接口方法" resultMap="返回的映射map" parameterType="参数类型"
+                            或者resultType="返回的结果类型">
+
+(3) SQL语句中#{参数名}，参数名对应于参数类型的成员变量名
+            ${参数名}，只做SQL语句的连接
